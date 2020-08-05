@@ -1,4 +1,6 @@
-# Laravel Auth Plugin
+# Laravel Upbond Auth Plugin
+
+This package is inspired by Auth0
 
 This plugin helps you integrate your [Laravel](https://laravel.com/) WebApp with [Auth](https://auth0.com/) to achieve Single Sign On with a few simple steps.
 
