@@ -50,7 +50,6 @@ class AuthService
         if (!$authConfig instanceof ConfigRepository && !is_array($authConfig)) {
             $authConfig = config('upbond');
         }
-
         $store = $authConfig['store'] ?? $store;
         if (false !== $store && !$store instanceof StoreInterface) {
             $store = new LaravelSessionStore();
@@ -192,9 +191,9 @@ class AuthService
         $user = $user_fetcher->getUser($this->apiuser, $encUser);
         //TODO: accountID 
         // dd($token_issuer);
-        $parsedUrl = parse_url($token_issuer);
-        $host = explode('.', $parsedUrl['host']);
-        $user['account'] = $host[0];
+        // $parsedUrl = parse_url($token_issuer);
+        // $host = explode('.', $parsedUrl['host']);
+        // $user['account'] = $host[0];
         return $user;
 
         // $token_issuer = 'https://'.$this->authConfig['domain'].'/';
