@@ -35,14 +35,13 @@ class LoginServiceProvider extends ServiceProvider
             __DIR__.'/../../config/config.php' => config_path('upbond.php'),
         ]);
 
-        $laravel = app();
 
         $oldInfoHeaders = ApiClient::getInfoHeadersData();
 
         if ($oldInfoHeaders) {
             $infoHeaders = InformationHeaders::Extend($oldInfoHeaders);
 
-            $infoHeaders->setEnvProperty('Laravel', $laravel::VERSION);
+            // $infoHeaders->setEnvProperty('Laravel', $laravel::VERSION);
             $infoHeaders->setPackage('upbond', self::SDK_VERSION);
 
             ApiClient::setInfoHeadersData($infoHeaders);
