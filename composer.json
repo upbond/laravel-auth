@@ -27,22 +27,19 @@
             "src/facade"
         ],
         "psr-0": {
-            "Auth\\Login\\": "src/"
+            "Upbond\\Auth\\Login\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Auth\\Login\\Tests\\": "tests"
+            "Upbond\\Auth\\Login\\Tests\\": "tests"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Auth\\Login\\LoginServiceProvider"
-            ],
-            "aliases": {
-                "Auth": "Auth\\Login\\Facade\\Auth"
-            }
+                "Upbond\\Auth\\Login\\LoginServiceProvider"
+            ]
         }
     }
 }
