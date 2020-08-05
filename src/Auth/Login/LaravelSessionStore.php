@@ -6,7 +6,7 @@ use Upbond\Auth\SDK\Store\StoreInterface;
 
 class LaravelSessionStore implements StoreInterface
 {
-    const BASE_NAME = 'auth0_';
+    const BASE_NAME = 'upbond_auth_';
 
     /**
      * Persists $value on $_SESSION, identified by $key.

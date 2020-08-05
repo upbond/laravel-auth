@@ -19,7 +19,7 @@ class AuthServiceTest extends OrchestraTestCase
     {
         parent::setUpBeforeClass();
         self::$defaultConfig = [
-            'domain' => 'test.auth0.com',
+            'domain' => 'test.upbond.com',
             'client_id' => '__test_client_id__',
             'client_secret' => '__test_client_secret__',
             'redirect_uri' => 'https://example.com/callback',
@@ -35,7 +35,7 @@ class AuthServiceTest extends OrchestraTestCase
 
     public function testThatServiceUsesSessionStoreByDefault()
     {
-        session(['auth0__user' => '__test_user__']);
+        session(['upbond__user' => '__test_user__']);
         $service = new AuthService(self::$defaultConfig);
         $user = $service->getUser();
 
@@ -45,7 +45,7 @@ class AuthServiceTest extends OrchestraTestCase
 
     public function testThatServiceSetsEmptyStoreFromConfigAndConstructor()
     {
-        session(['auth0__user' => '__test_user__']);
+        session(['upbond__user' => '__test_user__']);
 
         $service = new AuthService(self::$defaultConfig + ['store' => false]);
         $this->assertNull($service->getUser());
@@ -63,7 +63,7 @@ class AuthServiceTest extends OrchestraTestCase
 
         $targetUrl = parse_url($redirect->getTargetUrl());
 
-        $this->assertEquals('test.auth0.com', $targetUrl['host']);
+        $this->assertEquals('test.upbond.com', $targetUrl['host']);
 
         $targetUrlQuery = explode('&', $targetUrl['query']);
 
@@ -78,7 +78,7 @@ class AuthServiceTest extends OrchestraTestCase
     {
         $cache_key = md5('https://__invalid_domain__/.well-known/jwks.json');
         cache([$cache_key => [uniqid()]], 10);
-        session(['auth0__nonce' => uniqid()]);
+        session(['upbond__nonce' => uniqid()]);
 
         $service = new AuthService(['domain' => '__invalid_domain__'] + self::$defaultConfig);
 
@@ -89,13 +89,13 @@ class AuthServiceTest extends OrchestraTestCase
 
     public function testThatGuardAuthenticatesUsers()
     {
-        $this->assertTrue(\Auth('auth0')->guest());
+        $this->assertTrue(\Auth('upbond')->guest());
 
         $user = new AuthJWTUser(['sub' => 'x']);
 
-        \Auth('auth0')->setUser($user);
+        \Auth('upbond')->setUser($user);
 
-        $this->assertTrue(\Auth('auth0')->check());
+        $this->assertTrue(\Auth('upbond')->check());
     }
 
     /*
@@ -116,8 +116,8 @@ class AuthServiceTest extends OrchestraTestCase
 
     protected function getEnvironmentSetUp($app)
     {
-        $app['config']->set('auth.guards.auth0', ['driver' => 'auth0', 'provider' => 'auth0']);
-        $app['config']->set('auth.providers.auth0', ['driver' => 'auth0']);
-        $app['config']->set('laravel-auth0', self::$defaultConfig);
+        $app['config']->set('auth.guards.upbond', ['driver' => 'upbond', 'provider' => 'upbond']);
+        $app['config']->set('auth.providers.upbond', ['driver' => 'upbond']);
+        $app['config']->set('upbond', self::$defaultConfig);
     }
 }

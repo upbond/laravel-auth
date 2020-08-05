@@ -15,18 +15,18 @@ use Upbond\Auth\SDK\Exception\InvalidTokenException;
 class AuthUserProvider implements UserProvider
 {
     protected $userRepository;
-    protected $auth0;
+    protected $auth;
 
     /**
      * AuthUserProvider constructor.
      *
      * @param AuthUserRepository       $userRepository
-     * @param \Auth\Login\AuthService $auth0
+     * @param \Auth\Login\AuthService $auth
      */
-    public function __construct(AuthUserRepository $userRepository, AuthService $auth0)
+    public function __construct(AuthUserRepository $userRepository, AuthService $auth)
     {
         $this->userRepository = $userRepository;
-        $this->auth0 = $auth0;
+        $this->auth = $auth;
     }
 
     /**
@@ -56,7 +56,7 @@ class AuthUserProvider implements UserProvider
         $encUser = $credentials['api_token'];
 
         try {
-            $decodedJWT = $this->auth0->decodeJWT($encUser);
+            $decodedJWT = $this->auth->decodeJWT($encUser);
         } catch (CoreException $e) {
             return null;
         } catch (InvalidTokenException $e) {

@@ -4,30 +4,30 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    |   Your auth0 domain
+    |   Your upbond auth service domain
     |--------------------------------------------------------------------------
-    |   As set in the auth0 administration page
+    |   As set in the upbond auth service administration page
     |
     */
-    'domain'        => env( 'AUTH0_DOMAIN' ),
+    'domain'        => env( 'UPBOND_AUTH_DOMAIN' ),
 
     /*
     |--------------------------------------------------------------------------
     |   Your APP id
     |--------------------------------------------------------------------------
-    |   As set in the auth0 administration page
+    |   As set in the upbond auth service administration page
     |
     */
-    'client_id'     => env( 'AUTH0_CLIENT_ID' ),
+    'client_id'     => env( 'UPBOND_AUTH_CLIENT_ID' ),
 
     /*
     |--------------------------------------------------------------------------
     |   Your APP secret
     |--------------------------------------------------------------------------
-    |   As set in the auth0 administration page
+    |   As set in the upbond auth service administration page
     |
     */
-    'client_secret' => env( 'AUTH0_CLIENT_SECRET' ),
+    'client_secret' => env( 'UPBOND_AUTH_CLIENT_SECRET' ),
 
     /*
      |--------------------------------------------------------------------------
@@ -37,7 +37,7 @@ return [
      |   'Auth\Login\AuthController@callback'
      |
      */
-    'redirect_uri'  => env( 'APP_URL' ) . '/auth0/callback',
+    'redirect_uri'  => env( 'APP_URL' ) . '/upbond auth service/callback',
 
     /*
     |--------------------------------------------------------------------------
@@ -61,7 +61,7 @@ return [
     |   This is used to verify the decoded tokens when using RS256
     |
     */
-    'authorized_issuers'  => [ env( 'AUTH0_DOMAIN' ) ],
+    'authorized_issuers'  => [ env( 'UPBOND_AUTH_DOMAIN' ) ],
 
     /*
     |--------------------------------------------------------------------------

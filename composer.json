@@ -1,6 +1,6 @@
 {
     "name": "upbond/laravel-auth",
-    "description": "Laravel plugin that helps authenticate with the auth0 service",
+    "description": "Laravel plugin that helps authenticate with the upbond auth service",
     "license": "MIT",
     "prefer-stable": true,
     "require": {

@@ -10,14 +10,14 @@ class AuthJWTUserTest extends TestCase
     /**
      * @var AuthJWTUser
      */
-    protected $auth0JwtUser;
+    protected $upbondJwtUser;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->auth0JwtUser = new AuthJWTUser([
+        $this->upbondJwtUser = new AuthJWTUser([
             "name" => "John Doe",
-            "iss" => "http://auth0.com",
+            "iss" => "http://upbond.com",
             "sub" => "someone@example.com",
             "aud" => "http://example.com",
             "exp" => 1357000000
@@ -26,30 +26,30 @@ class AuthJWTUserTest extends TestCase
 
     public function testAuthIdentifierNameIsSubjectOfJWTToken()
     {
-        $this->assertEquals('someone@example.com', $this->auth0JwtUser->getAuthIdentifierName());
+        $this->assertEquals('someone@example.com', $this->upbondJwtUser->getAuthIdentifierName());
     }
 
     public function testAuthIdentifierIsSubjectOfJWTToken()
     {
-        $this->assertEquals('someone@example.com', $this->auth0JwtUser->getAuthIdentifier());
+        $this->assertEquals('someone@example.com', $this->upbondJwtUser->getAuthIdentifier());
     }
 
     public function testGetAuthPasswordWillNotReturnAnything()
     {
-        $this->assertEquals('', $this->auth0JwtUser->getAuthPassword());
+        $this->assertEquals('', $this->upbondJwtUser->getAuthPassword());
     }
 
     public function testObjectHoldsNoRememberTokenInformation()
     {
-        $this->auth0JwtUser->setRememberToken('testing123');
+        $this->upbondJwtUser->setRememberToken('testing123');
 
-        $this->assertEquals('', $this->auth0JwtUser->getRememberToken());
-        $this->assertEquals('', $this->auth0JwtUser->getRememberTokenName());
+        $this->assertEquals('', $this->upbondJwtUser->getRememberToken());
+        $this->assertEquals('', $this->upbondJwtUser->getRememberTokenName());
     }
 
     public function testGettersCanReturnTokenClaims()
     {
         // Retrieve issuer claim
-        $this->assertEquals('http://auth0.com', $this->auth0JwtUser->iss);
+        $this->assertEquals('http://upbond.com', $this->upbondJwtUser->iss);
     }
 }

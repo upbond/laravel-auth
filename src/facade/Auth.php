@@ -11,6 +11,7 @@ class Auth extends \Illuminate\Support\Facades\Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'auth0';
+        //TODO: Check facade
+        return 'upbond';
     }
 }

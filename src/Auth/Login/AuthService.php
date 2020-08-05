@@ -21,47 +21,47 @@ class AuthService
     /**
      * @var Auth
      */
-    private $auth0;
+    private $auth;
 
     private $apiuser;
     private $_onLoginCb = null;
     private $rememberUser = false;
-    private $auth0Config = [];
+    private $authConfig = [];
 
     /**
      * AuthService constructor.
      *
-     * @param array|null $auth0Config
+     * @param array|null $authConfig
      * @param StoreInterface|null $store
      * @param CacheInterface|null $cache
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __construct(
-        array $auth0Config,
+        array $authConfig,
         StoreInterface $store = null,
         CacheInterface $cache = null
     )
     {
 
-        if (!$auth0Config instanceof ConfigRepository && !is_array($auth0Config)) {
-            $auth0Config = config('laravel-auth0');
+        if (!$authConfig instanceof ConfigRepository && !is_array($authConfig)) {
+            $authConfig = config('upbond');
         }
 
-        $store = $auth0Config['store'] ?? $store;
+        $store = $authConfig['store'] ?? $store;
         if (false !== $store && !$store instanceof StoreInterface) {
             $store = new LaravelSessionStore();
         }
-        $auth0Config['store'] = $store;
+        $authConfig['store'] = $store;
 
-        $cache = $auth0Config['cache_handler'] ?? $cache;
+        $cache = $authConfig['cache_handler'] ?? $cache;
         if (!($cache instanceof CacheInterface)) {
             $cache = app()->make('cache.store');
         }
-        $auth0Config['cache_handler'] = $cache;
+        $authConfig['cache_handler'] = $cache;
 
-        $this->auth0Config = $auth0Config;
-        $this->auth0 = new Auth($auth0Config);
+        $this->authConfig = $authConfig;
+        $this->auth = new Auth($authConfig);
     }
 
     /**
@@ -71,7 +71,7 @@ class AuthService
      */
     private function getSDK()
     {
-        return $this->auth0;
+        return $this->auth;
     }
 
     /**
@@ -96,20 +96,20 @@ class AuthService
         }
 
         $additional_params['response_type'] = $response_type;
-        $auth_url = $this->auth0->getLoginUrl($additional_params);
+        $auth_url = $this->auth->getLoginUrl($additional_params);
         return new RedirectResponse($auth_url);
     }
 
     /**
      * If the user is logged in, returns the user information.
      *
-     * @return array with the User info as described in https://docs.auth0.com/user-profile and the user access token
+     * @return array with the User info as described in https://docs.auth.com/user-profile and the user access token
      */
     public function getUser()
     {
-        // Get the user info from auth0
-        $auth0 = $this->getSDK();
-        $user = $auth0->getUser();
+        // Get the user info from auth
+        $auth = $this->getSDK();
+        $user = $auth->getUser();
 
         if ($user === null) {
             return;
@@ -117,14 +117,14 @@ class AuthService
 
         return [
             'profile' => $user,
-            'accessToken' => $auth0->getAccessToken(),
+            'accessToken' => $auth->getAccessToken(),
         ];
     }
 
     /**
      * Sets a callback to be called when the user is logged in.
      *
-     * @param callback $cb A function that receives an auth0User and receives a Laravel user
+     * @param callback $cb A function that receives an authUser and receives a Laravel user
      */
     public function onLogin($cb)
     {
@@ -140,13 +140,13 @@ class AuthService
     }
 
     /**
-     * @param $auth0User
+     * @param $authUser
      *
      * @return mixed
      */
-    public function callOnLogin($auth0User)
+    public function callOnLogin($authUser)
     {
-        return call_user_func($this->_onLoginCb, $auth0User);
+        return call_user_func($this->_onLoginCb, $authUser);
     }
 
     /**
@@ -174,18 +174,18 @@ class AuthService
      */
     public function decodeJWT($encUser, array $verifierOptions = [])
     {
-        $token_issuer = 'https://'.$this->auth0Config['domain'].'/';
-        $apiIdentifier = $this->auth0Config['api_identifier'];
-        $idTokenAlg = $this->auth0Config['supported_algs'][0] ?? 'RS256';
+        $token_issuer = 'https://'.$this->authConfig['domain'].'/';
+        $apiIdentifier = $this->authConfig['api_identifier'];
+        $idTokenAlg = $this->authConfig['supported_algs'][0] ?? 'RS256';
 
         $signature_verifier = null;
         if ('RS256' === $idTokenAlg) {
-            $jwksUri = $this->auth0Config['jwks_uri'] ?? 'https://'.$this->auth0Config['domain'].'/.well-known/jwks.json';
-            $jwks_fetcher = new JWKFetcher($this->auth0Config['cache_handler']);
+            $jwksUri = $this->authConfig['jwks_uri'] ?? 'https://'.$this->authConfig['domain'].'/.well-known/jwks.json';
+            $jwks_fetcher = new JWKFetcher($this->authConfig['cache_handler']);
             $jwks = $jwks_fetcher->getKeys($jwksUri);
             $signature_verifier = new AsymmetricVerifier($jwks);
         } else if ('HS256' === $idTokenAlg) {
-            $signature_verifier = new SymmetricVerifier($this->auth0Config['client_secret']);
+            $signature_verifier = new SymmetricVerifier($this->authConfig['client_secret']);
         } else {
             throw new InvalidTokenException('Unsupported token signing algorithm configured. Must be either RS256 or HS256.');
         }
