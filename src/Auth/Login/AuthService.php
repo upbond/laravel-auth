@@ -5,9 +5,12 @@ namespace Upbond\Auth\Login;
 use Upbond\Auth\SDK\Auth;
 use Upbond\Auth\SDK\Exception\InvalidTokenException;
 use Upbond\Auth\SDK\Helpers\JWKFetcher;
+use Upbond\Auth\SDK\Helpers\UserFetcher;
 use Upbond\Auth\SDK\Helpers\Tokens\AsymmetricVerifier;
+use Upbond\Auth\SDK\Helpers\Tokens\AsymmetricUpbondVerifier;
 use Upbond\Auth\SDK\Helpers\Tokens\SymmetricVerifier;
 use Upbond\Auth\SDK\Helpers\Tokens\TokenVerifier;
+use Upbond\Auth\SDK\Helpers\Tokens\UpbondTokenVerifier;
 use Upbond\Auth\SDK\Store\StoreInterface;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Illuminate\Http\RedirectResponse;
@@ -177,28 +180,44 @@ class AuthService
         $token_issuer = 'https://'.$this->authConfig['domain'].'/';
         $apiIdentifier = $this->authConfig['api_identifier'];
         $idTokenAlg = $this->authConfig['supported_algs'][0] ?? 'RS256';
-
-        $signature_verifier = null;
-        if ('RS256' === $idTokenAlg) {
-            $jwksUri = $this->authConfig['jwks_uri'] ?? 'https://'.$this->authConfig['domain'].'/.well-known/jwks.json';
-            $jwks_fetcher = new JWKFetcher($this->authConfig['cache_handler']);
-            $jwks = $jwks_fetcher->getKeys($jwksUri);
-            $signature_verifier = new AsymmetricVerifier($jwks);
-        } else if ('HS256' === $idTokenAlg) {
-            $signature_verifier = new SymmetricVerifier($this->authConfig['client_secret']);
-        } else {
-            throw new InvalidTokenException('Unsupported token signing algorithm configured. Must be either RS256 or HS256.');
-        }
-
-        // Use IdTokenVerifier since Auth-issued JWTs contain the 'sub' claim, which is used by the Laravel user model
-        $token_verifier = new TokenVerifier(
+     
+        $token_verifier = new UpbondTokenVerifier(
             $token_issuer,
             $apiIdentifier,
-            $signature_verifier
+            new AsymmetricUpbondVerifier()
         );
-
         $this->apiuser = $token_verifier->verify($encUser, $verifierOptions);
-        return $this->apiuser;
+        
+        $user_fetcher = new UserFetcher($token_issuer, $this->authConfig['cache_handler']);
+        $user = $user_fetcher->getUser($this->apiuser, $encUser);
+        // dd($user);
+        return $user;
+
+        // $token_issuer = 'https://'.$this->authConfig['domain'].'/';
+        // $apiIdentifier = $this->authConfig['api_identifier'];
+        // $idTokenAlg = $this->authConfig['supported_algs'][0] ?? 'RS256';
+     
+        // $signature_verifier = null;
+        // if ('RS256' === $idTokenAlg) {
+        //     $jwksUri = $this->authConfig['jwks_uri'] ?? 'https://'.$this->authConfig['domain'].'/.well-known/jwks.json';
+        //     $jwks_fetcher = new JWKFetcher($this->authConfig['cache_handler']);
+        //     $jwks = $jwks_fetcher->getKeys($jwksUri);
+        //     $signature_verifier = new AsymmetricVerifier($jwks);
+        // } else if ('HS256' === $idTokenAlg) {
+        //     $signature_verifier = new SymmetricVerifier($this->authConfig['client_secret']);
+        // } else {
+        //     throw new InvalidTokenException('Unsupported token signing algorithm configured. Must be either RS256 or HS256.');
+        // }
+
+        // // Use IdTokenVerifier since Auth-issued JWTs contain the 'sub' claim, which is used by the Laravel user model
+        // $token_verifier = new TokenVerifier(
+        //     $token_issuer,
+        //     $apiIdentifier,
+        //     $signature_verifier
+        // );
+
+        // $this->apiuser = $token_verifier->verify($encUser, $verifierOptions);
+        // return $this->apiuser;
     }
 
     public function getIdToken()
