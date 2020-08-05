@@ -190,7 +190,11 @@ class AuthService
         
         $user_fetcher = new UserFetcher($token_issuer, $this->authConfig['cache_handler']);
         $user = $user_fetcher->getUser($this->apiuser, $encUser);
-        // dd($user);
+        //TODO: accountID 
+        // dd($token_issuer);
+        $parsedUrl = parse_url($token_issuer);
+        $host = explode('.', $parsedUrl['host']);
+        $user['account'] = $host[0];
         return $user;
 
         // $token_issuer = 'https://'.$this->authConfig['domain'].'/';
