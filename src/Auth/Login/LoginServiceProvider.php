@@ -10,6 +10,7 @@ use Upbond\Auth\SDK\Store\StoreInterface;
 use Illuminate\Auth\RequestGuard;
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
+use Upbond\Auth\SDK\Store\EmptyStore;
 
 class LoginServiceProvider extends ServiceProvider
 {
@@ -32,9 +33,10 @@ class LoginServiceProvider extends ServiceProvider
         });
 
         $this->publishes([
-            __DIR__.'/../../config/config.php' => config_path('upbond.php'),
+            __DIR__.'/../../config/config.php' => base_path('config/upbond.php'),
         ]);
 
+        // $laravel = app();
 
         $oldInfoHeaders = ApiClient::getInfoHeadersData();
 
@@ -53,12 +55,23 @@ class LoginServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(StoreInterface::class, function () {
-            return new LaravelSessionStore();
-        });
+        $configPath = __DIR__.'/../../config/config.php';
+        $this->mergeConfigFrom($configPath, 'upbond');
+
+        if (app() instanceof \Illuminate\Foundation\Application) {
+            $this->app->bind(StoreInterface::class, function () {
+                return new LaravelSessionStore();
+            });
+        } else {
+            $this->app->bind(StoreInterface::class, function () {
+                return new EmptyStore();
+            });
+        }
+
+
 
         $this->app->bind(AuthUserRepositoryContract::class, AuthUserRepository::class);
-
+        
         // Bind the upbond name to a singleton instance of the Auth Service
         $this->app->singleton(AuthService::class, function ($app) {
             return new AuthService(
