@@ -1,17 +1,17 @@
 <?php
-namespace Auth0\Login\Tests;
+namespace Upbond\Auth\Login\Tests;
 
-use Auth0\Login\Auth0JWTUser;
-use Auth0\Login\Auth0Service;
-use Auth0\Login\Facade\Auth0 as Auth0Facade;
-use Auth0\Login\LoginServiceProvider as Auth0ServiceProvider;
-use Auth0\SDK\Exception\InvalidTokenException;
-use Auth0\SDK\Store\SessionStore;
+use Upbond\Auth\Login\AuthJWTUser;
+use Upbond\Auth\Login\AuthService;
+use Upbond\Auth\Login\Facade\Auth as AuthFacade;
+use Upbond\Auth\Login\LoginServiceProvider as AuthServiceProvider;
+use Upbond\Auth\SDK\Exception\InvalidTokenException;
+use Upbond\Auth\SDK\Store\SessionStore;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Cache;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
-class Auth0ServiceTest extends OrchestraTestCase
+class AuthServiceTest extends OrchestraTestCase
 {
     public static $defaultConfig;
 
@@ -36,7 +36,7 @@ class Auth0ServiceTest extends OrchestraTestCase
     public function testThatServiceUsesSessionStoreByDefault()
     {
         session(['auth0__user' => '__test_user__']);
-        $service = new Auth0Service(self::$defaultConfig);
+        $service = new AuthService(self::$defaultConfig);
         $user = $service->getUser();
 
         $this->assertArrayHasKey('profile', $user);
@@ -47,16 +47,16 @@ class Auth0ServiceTest extends OrchestraTestCase
     {
         session(['auth0__user' => '__test_user__']);
 
-        $service = new Auth0Service(self::$defaultConfig + ['store' => false]);
+        $service = new AuthService(self::$defaultConfig + ['store' => false]);
         $this->assertNull($service->getUser());
 
-        $service = new Auth0Service(self::$defaultConfig);
+        $service = new AuthService(self::$defaultConfig);
         $this->assertIsArray($service->getUser());
     }
 
     public function testThatServiceLoginReturnsRedirect()
     {
-        $service = new Auth0Service(self::$defaultConfig);
+        $service = new AuthService(self::$defaultConfig);
         $redirect = $service->login();
 
         $this->assertInstanceOf( RedirectResponse::class, $redirect );
@@ -80,7 +80,7 @@ class Auth0ServiceTest extends OrchestraTestCase
         cache([$cache_key => [uniqid()]], 10);
         session(['auth0__nonce' => uniqid()]);
 
-        $service = new Auth0Service(['domain' => '__invalid_domain__'] + self::$defaultConfig);
+        $service = new AuthService(['domain' => '__invalid_domain__'] + self::$defaultConfig);
 
         // Without the cache set above, would expect a cURL error for a bad domain.
         $this->expectException(InvalidTokenException::class);
@@ -91,7 +91,7 @@ class Auth0ServiceTest extends OrchestraTestCase
     {
         $this->assertTrue(\Auth('auth0')->guest());
 
-        $user = new Auth0JWTUser(['sub' => 'x']);
+        $user = new AuthJWTUser(['sub' => 'x']);
 
         \Auth('auth0')->setUser($user);
 
@@ -104,13 +104,13 @@ class Auth0ServiceTest extends OrchestraTestCase
 
     protected function getPackageProviders($app)
     {
-        return [Auth0ServiceProvider::class];
+        return [AuthServiceProvider::class];
     }
 
     protected function getPackageAliases($app)
     {
         return [
-            'Auth0' => Auth0Facade::class,
+            'Auth' => AuthFacade::class,
         ];
     }
 

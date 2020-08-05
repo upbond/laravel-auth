@@ -1,21 +1,21 @@
 <?php
 
-namespace Auth0\Login\Tests\Unit;
+namespace Upbond\Auth\Login\Tests\Unit;
 
-use Auth0\Login\Auth0JWTUser;
+use Upbond\Auth\Login\AuthJWTUser;
 use PHPUnit\Framework\TestCase;
 
-class Auth0JWTUserTest extends TestCase
+class AuthJWTUserTest extends TestCase
 {
     /**
-     * @var Auth0JWTUser
+     * @var AuthJWTUser
      */
     protected $auth0JwtUser;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->auth0JwtUser = new Auth0JWTUser([
+        $this->auth0JwtUser = new AuthJWTUser([
             "name" => "John Doe",
             "iss" => "http://auth0.com",
             "sub" => "someone@example.com",

@@ -19,7 +19,7 @@
 - Implement auth0 guard [\#166](https://github.com/auth0/laravel-auth0/pull/166) ([Tamrael](https://github.com/Tamrael))
 
 **Changed**
-- Use array for Auth0JWTUser and add repo return types [\#176](https://github.com/auth0/laravel-auth0/pull/176) ([joshcanhelp](https://github.com/joshcanhelp))
+- Use array for AuthJWTUser and add repo return types [\#176](https://github.com/auth0/laravel-auth0/pull/176) ([joshcanhelp](https://github.com/joshcanhelp))
 - Update PHP SDK to v7.0.0 [\#162](https://github.com/auth0/laravel-auth0/pull/162) ([joshcanhelp](https://github.com/joshcanhelp))
 - Bind SessionState handler interface in container [\#147](https://github.com/auth0/laravel-auth0/pull/147) ([nstapelbroek](https://github.com/nstapelbroek))
 
@@ -42,7 +42,7 @@
 [Full Changelog](https://github.com/auth0/laravel-auth0/compare/5.3.0...5.3.1)
 
 **Closed issues**
-- Setting of state_handler in Auth0Service causes "Invalid state" error [\#154](https://github.com/auth0/laravel-auth0/issues/154)
+- Setting of state_handler in AuthService causes "Invalid state" error [\#154](https://github.com/auth0/laravel-auth0/issues/154)
 
 **Fixed**
 - Allow store and state_handler to be passed in from config [\#156](https://github.com/auth0/laravel-auth0/pull/156) ([joshcanhelp](https://github.com/joshcanhelp))
@@ -66,17 +66,17 @@
 [Full Changelog](https://github.com/auth0/laravel-auth0/compare/5.1.0...5.2.0)
 
 **Closed issues**
-- Authenticate as a Laravel API user using the Auth0 token [\#129](https://github.com/auth0/laravel-auth0/issues/129)
+- Authenticate as a Laravel API user using the Auth token [\#129](https://github.com/auth0/laravel-auth0/issues/129)
 - Redirect to previous page after login [\#122](https://github.com/auth0/laravel-auth0/issues/122)
-- Auth0User uses private variables so they cannot be accessed or overridden in child class [\#120](https://github.com/auth0/laravel-auth0/issues/120)
+- AuthUser uses private variables so they cannot be accessed or overridden in child class [\#120](https://github.com/auth0/laravel-auth0/issues/120)
 - API routes broken in auth0-laravel-php-web-app (and in general)? [\#117](https://github.com/auth0/laravel-auth0/issues/117)
 - API returning "token algorithm not supported" [\#116](https://github.com/auth0/laravel-auth0/issues/116)
 - Changing name of user identifier [\#115](https://github.com/auth0/laravel-auth0/issues/115)
 - Possible to use User object functions? [\#114](https://github.com/auth0/laravel-auth0/issues/114)
-- Auth0-PHP@5.3.1 breaks Laravel-Auth0 [\#108](https://github.com/auth0/laravel-auth0/issues/108)
+- Auth-PHP@5.3.1 breaks Laravel-Auth [\#108](https://github.com/auth0/laravel-auth0/issues/108)
 - Extend Illuminate\Foundation\Auth\User [\#104](https://github.com/auth0/laravel-auth0/issues/104)
-- [Bug] Inconsistencies with the singleton Auth0Service [\#103](https://github.com/auth0/laravel-auth0/issues/103)
-- How do you combine Auth0 Lock with Laravel Auth0? [\#102](https://github.com/auth0/laravel-auth0/issues/102)
+- [Bug] Inconsistencies with the singleton AuthService [\#103](https://github.com/auth0/laravel-auth0/issues/103)
+- How do you combine Auth Lock with Laravel Auth? [\#102](https://github.com/auth0/laravel-auth0/issues/102)
 - OnLogin callback question [\#97](https://github.com/auth0/laravel-auth0/issues/97)
 
 **Added**
@@ -84,14 +84,14 @@
 
 **Changed**
 - Change private properties to protected [\#132](https://github.com/auth0/laravel-auth0/pull/132) ([joshcanhelp](https://github.com/joshcanhelp))
-- Return null instead of false in Auth0UserProvider. [\#128](https://github.com/auth0/laravel-auth0/pull/128) ([afreakk](https://github.com/afreakk))
+- Return null instead of false in AuthUserProvider. [\#128](https://github.com/auth0/laravel-auth0/pull/128) ([afreakk](https://github.com/afreakk))
 - Change the visibility of the getter method from private to public [\#121](https://github.com/auth0/laravel-auth0/pull/121) ([irieznykov](https://github.com/irieznykov))
 - Updated required PHP version to 5.4 in composer [\#118](https://github.com/auth0/laravel-auth0/pull/118) ([dmyers](https://github.com/dmyers))
 - Changed arrays to use short array syntax [\#110](https://github.com/auth0/laravel-auth0/pull/110) ([dmyers](https://github.com/dmyers))
 
 **Fixed**
 - Fix cachehandler resolving issues [\#131](https://github.com/auth0/laravel-auth0/pull/131) ([deviouspk](https://github.com/deviouspk))
-- Added the Auth0Service as a singleton through the classname [\#107](https://github.com/auth0/laravel-auth0/pull/107) ([JCombee](https://github.com/JCombee))
+- Added the AuthService as a singleton through the classname [\#107](https://github.com/auth0/laravel-auth0/pull/107) ([JCombee](https://github.com/JCombee))
 - Fixed typo [\#106](https://github.com/auth0/laravel-auth0/pull/106) ([IvanArjona](https://github.com/IvanArjona))
 
 ## [5.1.0](https://github.com/auth0/laravel-auth0/tree/5.1.0) (2018-03-20)
@@ -106,7 +106,7 @@
 
 **Changed**
 - Change default settings file [\#96](https://github.com/auth0/laravel-auth0/pull/96) ([joshcanhelp](https://github.com/joshcanhelp))
-- Utilise Auth0->Login to ensure state validation [\#90](https://github.com/auth0/laravel-auth0/pull/90) ([cocojoe](https://github.com/cocojoe))
+- Utilise Auth->Login to ensure state validation [\#90](https://github.com/auth0/laravel-auth0/pull/90) ([cocojoe](https://github.com/cocojoe))
 
 **Fixed**
 - Make code comments gender neutral [\#98](https://github.com/auth0/laravel-auth0/pull/98) ([devjack](https://github.com/devjack))
@@ -117,7 +117,7 @@
 
 **Merged pull requests:**
 
-- Use instead of to identify the Auth0 user [\#80](https://github.com/auth0/laravel-auth0/pull/80) ([glena](https://github.com/glena))
+- Use instead of to identify the Auth user [\#80](https://github.com/auth0/laravel-auth0/pull/80) ([glena](https://github.com/glena))
 
 ## [5.0.1](https://github.com/auth0/laravel-auth0/tree/5.0.1) (2017-02-23)
 [Full Changelog](https://github.com/auth0/laravel-auth0/compare/5.0.0...5.0.1)
@@ -156,7 +156,7 @@ Fixed `supported_algs` configuration name
 **Merged pull requests:**
 
 - Code style & docblocks [\#56](https://github.com/auth0/laravel-auth0/pull/56) ([seanmangar](https://github.com/seanmangar))
-- Adding accessor to retrieve JWT from Auth0Service [\#58](https://github.com/auth0/laravel-auth0/pull/58) ([ryantology](https://github.com/ryantology))
+- Adding accessor to retrieve JWT from AuthService [\#58](https://github.com/auth0/laravel-auth0/pull/58) ([ryantology](https://github.com/ryantology))
 
 ## [4.0.5](https://github.com/auth0/laravel-auth0/tree/4.0.5) (2016-11-29)
 [Full Changelog](https://github.com/auth0/laravel-auth0/compare/4.0.4...4.0.5)
@@ -244,7 +244,7 @@ Support of auth0 PHP sdk v4 with JWKs cache
 
 **Merged pull requests:**
 
-- Auth0 SDK checks for null values instead of false [\#27](https://github.com/auth0/laravel-auth0/pull/27) ([thijsvdanker](https://github.com/thijsvdanker))
+- Auth SDK checks for null values instead of false [\#27](https://github.com/auth0/laravel-auth0/pull/27) ([thijsvdanker](https://github.com/thijsvdanker))
 
 ## [3.0.1](https://github.com/auth0/laravel-auth0/tree/3.0.1) (2016-01-18)
 [Full Changelog](https://github.com/auth0/laravel-auth0/compare/3.0.0...3.0.1)

@@ -1,33 +1,26 @@
 <?php
 
-namespace Auth0\Login;
+namespace Upbond\Auth\Login;
 
 /**
  * This class represents a generic user initialized with the user information
- * given by Auth0 and provides a way to access to the decoded JWT data.
+ * given by Auth and provides a way to access to the user profile.
  */
-class Auth0JWTUser implements \Illuminate\Contracts\Auth\Authenticatable
+class AuthUser implements \Illuminate\Contracts\Auth\Authenticatable
 {
-    private $userInfo;
+    protected $userInfo;
+    protected $accessToken;
 
     /**
-     * Auth0JWTUser constructor.
+     * AuthUser constructor.
      *
-     * @param $userInfo
+     * @param array $userInfo
+     * @param string|null $accessToken
      */
-    public function __construct(array $userInfo)
+    public function __construct(array $userInfo, $accessToken)
     {
         $this->userInfo = $userInfo;
-    }
-
-    /**
-     * Get the unique identifier for the user.
-     *
-     * @return mixed
-     */
-    public function getAuthIdentifierName()
-    {
-        return $this->userInfo['sub'];
+        $this->accessToken = $accessToken;
     }
 
     /**
@@ -37,14 +30,30 @@ class Auth0JWTUser implements \Illuminate\Contracts\Auth\Authenticatable
      */
     public function getAuthIdentifier()
     {
+      if (isset($this->userInfo['sub'])) {
         return $this->userInfo['sub'];
+      }
+      return $this->userInfo['user_id'];
     }
 
     /**
-     * @return void
+     * Get id field name.
+     *
+     * @return string
+     */
+    public function getAuthIdentifierName()
+    {
+        return 'id';
+    }
+
+    /**
+     * Get the password for the user.
+     *
+     * @return string
      */
     public function getAuthPassword()
     {
+        return $this->accessToken;
     }
 
     /**
@@ -71,7 +80,7 @@ class Auth0JWTUser implements \Illuminate\Contracts\Auth\Authenticatable
     /**
      * Add a generic getter to get all the properties of the userInfo.
      *
-     * @return mixed the related value or null if it is not set
+     * @return the related value or null if it is not set
      */
     public function __get($name)
     {
@@ -83,7 +92,7 @@ class Auth0JWTUser implements \Illuminate\Contracts\Auth\Authenticatable
     }
 
     /**
-     * @return array
+     * @return mixed
      */
     public function getUserInfo()
     {

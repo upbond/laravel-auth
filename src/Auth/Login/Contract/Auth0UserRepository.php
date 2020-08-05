@@ -1,10 +1,10 @@
 <?php
 
-namespace Auth0\Login\Contract;
+namespace Upbond\Auth\Login\Contract;
 
 use \Illuminate\Contracts\Auth\Authenticatable;
 
-interface Auth0UserRepository
+interface AuthUserRepository
 {
     /**
      * @param array $decodedJwt with the data provided in the JWT

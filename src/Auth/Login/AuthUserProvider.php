@@ -1,29 +1,29 @@
 <?php
 
-namespace Auth0\Login;
+namespace Upbond\Auth\Login;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider;
-use Auth0\Login\Contract\Auth0UserRepository;
-use Auth0\SDK\Exception\CoreException;
-use Auth0\SDK\Exception\InvalidTokenException;
+use Upbond\Auth\Login\Contract\AuthUserRepository;
+use Upbond\Auth\SDK\Exception\CoreException;
+use Upbond\Auth\SDK\Exception\InvalidTokenException;
 
 /**
- * Service that provides an Auth0\LaravelAuth0\Auth0User stored in the session. This User provider
+ * Service that provides an Upbond\Auth\LaravelAuth\AuthUser stored in the session. This User provider
  * should be used when you don't want to persist the entity.
  */
-class Auth0UserProvider implements UserProvider
+class AuthUserProvider implements UserProvider
 {
     protected $userRepository;
     protected $auth0;
 
     /**
-     * Auth0UserProvider constructor.
+     * AuthUserProvider constructor.
      *
-     * @param Auth0UserRepository       $userRepository
-     * @param \Auth0\Login\Auth0Service $auth0
+     * @param AuthUserRepository       $userRepository
+     * @param \Auth\Login\AuthService $auth0
      */
-    public function __construct(Auth0UserRepository $userRepository, Auth0Service $auth0)
+    public function __construct(AuthUserRepository $userRepository, AuthService $auth0)
     {
         $this->userRepository = $userRepository;
         $this->auth0 = $auth0;

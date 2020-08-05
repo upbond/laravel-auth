@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="Laravel-Auth0" namespace="Auth0PHP\CS\Standard">
-    <description>A custom coding standard for the Laravel Auth0 package</description>
+<ruleset name="Laravel-Auth" namespace="AuthPHP\CS\Standard">
+    <description>A custom coding standard for the Laravel Auth package</description>
 
     <file>./src</file>
 

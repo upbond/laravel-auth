@@ -1,25 +1,25 @@
 <?php
 
-namespace Auth0\Login;
+namespace Upbond\Auth\Login;
 
-use Auth0\SDK\Auth0;
-use Auth0\SDK\Exception\InvalidTokenException;
-use Auth0\SDK\Helpers\JWKFetcher;
-use Auth0\SDK\Helpers\Tokens\AsymmetricVerifier;
-use Auth0\SDK\Helpers\Tokens\SymmetricVerifier;
-use Auth0\SDK\Helpers\Tokens\TokenVerifier;
-use Auth0\SDK\Store\StoreInterface;
+use Upbond\Auth\SDK\Auth;
+use Upbond\Auth\SDK\Exception\InvalidTokenException;
+use Upbond\Auth\SDK\Helpers\JWKFetcher;
+use Upbond\Auth\SDK\Helpers\Tokens\AsymmetricVerifier;
+use Upbond\Auth\SDK\Helpers\Tokens\SymmetricVerifier;
+use Upbond\Auth\SDK\Helpers\Tokens\TokenVerifier;
+use Upbond\Auth\SDK\Store\StoreInterface;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Illuminate\Http\RedirectResponse;
 use Psr\SimpleCache\CacheInterface;
 
 /**
- * Service that provides access to the Auth0 SDK.
+ * Service that provides access to the Auth SDK.
  */
-class Auth0Service
+class AuthService
 {
     /**
-     * @var Auth0
+     * @var Auth
      */
     private $auth0;
 
@@ -29,7 +29,7 @@ class Auth0Service
     private $auth0Config = [];
 
     /**
-     * Auth0Service constructor.
+     * AuthService constructor.
      *
      * @param array|null $auth0Config
      * @param StoreInterface|null $store
@@ -61,11 +61,11 @@ class Auth0Service
         $auth0Config['cache_handler'] = $cache;
 
         $this->auth0Config = $auth0Config;
-        $this->auth0 = new Auth0($auth0Config);
+        $this->auth0 = new Auth($auth0Config);
     }
 
     /**
-     * Creates an instance of the Auth0 SDK using
+     * Creates an instance of the Auth SDK using
      * the config set in the laravel way and using a LaravelSession
      * as a store mechanism.
      */
@@ -170,7 +170,7 @@ class Auth0Service
      * @param array $verifierOptions
      *
      * @return array
-     * @throws \Auth0\SDK\Exception\InvalidTokenException
+     * @throws \Auth\SDK\Exception\InvalidTokenException
      */
     public function decodeJWT($encUser, array $verifierOptions = [])
     {
@@ -190,7 +190,7 @@ class Auth0Service
             throw new InvalidTokenException('Unsupported token signing algorithm configured. Must be either RS256 or HS256.');
         }
 
-        // Use IdTokenVerifier since Auth0-issued JWTs contain the 'sub' claim, which is used by the Laravel user model
+        // Use IdTokenVerifier since Auth-issued JWTs contain the 'sub' claim, which is used by the Laravel user model
         $token_verifier = new TokenVerifier(
             $token_issuer,
             $apiIdentifier,

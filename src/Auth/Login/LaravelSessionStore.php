@@ -1,8 +1,8 @@
 <?php
 
-namespace Auth0\Login;
+namespace Upbond\Auth\Login;
 
-use Auth0\SDK\Store\StoreInterface;
+use Upbond\Auth\SDK\Store\StoreInterface;
 
 class LaravelSessionStore implements StoreInterface
 {
@@ -37,7 +37,7 @@ class LaravelSessionStore implements StoreInterface
     /**
      * Removes a persisted value identified by $key.
      *
-     * @see Auth0SDK\BaseAuth0
+     * @see AuthSDK\BaseAuth
      *
      * @param string $key
      */

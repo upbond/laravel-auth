@@ -1,23 +1,23 @@
 <?php
 
-namespace Auth0\Login;
+namespace Upbond\Auth\Login;
 
-use Auth0\Login\Contract\Auth0UserRepository;
+use Upbond\Auth\Login\Contract\AuthUserRepository;
 use Illuminate\Routing\Controller;
 
-class Auth0Controller extends Controller
+class AuthController extends Controller
 {
     /**
-     * @var Auth0UserRepository
+     * @var AuthUserRepository
      */
     protected $userRepository;
 
     /**
-     * Auth0Controller constructor.
+     * AuthController constructor.
      *
-     * @param Auth0UserRepository $userRepository
+     * @param AuthUserRepository $userRepository
      */
-    public function __construct(Auth0UserRepository $userRepository)
+    public function __construct(AuthUserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
     }
@@ -27,7 +27,7 @@ class Auth0Controller extends Controller
      */
     public function callback()
     {
-        // Get a handle of the Auth0 service (we don't know if it has an alias)
+        // Get a handle of the Auth service (we don't know if it has an alias)
         $service = \App::make('auth0');
 
         // Try to get the user information

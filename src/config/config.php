@@ -34,7 +34,7 @@ return [
      |   The redirect URI
      |--------------------------------------------------------------------------
      |   Should be the same that the one configure in the route to handle the
-     |   'Auth0\Login\Auth0Controller@callback'
+     |   'Auth\Login\AuthController@callback'
      |
      */
     'redirect_uri'  => env( 'APP_URL' ) . '/auth0/callback',

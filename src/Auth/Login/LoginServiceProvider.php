@@ -1,12 +1,12 @@
 <?php
 
-namespace Auth0\Login;
+namespace Upbond\Auth\Login;
 
-use Auth0\Login\Contract\Auth0UserRepository as Auth0UserRepositoryContract;
-use Auth0\Login\Repository\Auth0UserRepository;
-use Auth0\SDK\API\Helpers\ApiClient;
-use Auth0\SDK\API\Helpers\InformationHeaders;
-use Auth0\SDK\Store\StoreInterface;
+use Upbond\Auth\Login\Contract\AuthUserRepository as AuthUserRepositoryContract;
+use Upbond\Auth\Login\Repository\AuthUserRepository;
+use Upbond\Auth\SDK\API\Helpers\ApiClient;
+use Upbond\Auth\SDK\API\Helpers\InformationHeaders;
+use Upbond\Auth\SDK\Store\StoreInterface;
 use Illuminate\Auth\RequestGuard;
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
@@ -22,11 +22,11 @@ class LoginServiceProvider extends ServiceProvider
     public function boot()
     {
         \Auth::provider('auth0', function ($app, array $config) {
-            return $app->make(Auth0UserProvider::class);
+            return $app->make(AuthUserProvider::class);
         });
 
         \Auth::extend('auth0', function ($app, $name, $config) {
-            return new RequestGuard(function (Request $request, Auth0UserProvider $provider) {
+            return new RequestGuard(function (Request $request, AuthUserProvider $provider) {
                 return $provider->retrieveByCredentials(['api_token' => $request->bearerToken()]);
             }, $app['request'], $app['auth']->createUserProvider($config['provider']));
         });
@@ -58,18 +58,18 @@ class LoginServiceProvider extends ServiceProvider
             return new LaravelSessionStore();
         });
 
-        $this->app->bind(Auth0UserRepositoryContract::class, Auth0UserRepository::class);
+        $this->app->bind(AuthUserRepositoryContract::class, AuthUserRepository::class);
 
-        // Bind the auth0 name to a singleton instance of the Auth0 Service
-        $this->app->singleton(Auth0Service::class, function ($app) {
-            return new Auth0Service(
+        // Bind the auth0 name to a singleton instance of the Auth Service
+        $this->app->singleton(AuthService::class, function ($app) {
+            return new AuthService(
                 $app->make('config')->get('laravel-auth0'),
                 $app->make(StoreInterface::class),
                 $app->make('cache.store')
             );
         });
         $this->app->singleton('auth0', function () {
-            return $this->app->make(Auth0Service::class);
+            return $this->app->make(AuthService::class);
         });
 
         // When Laravel logs out, logout the auth0 SDK trough the service

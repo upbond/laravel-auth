@@ -1,32 +1,32 @@
 <?php
 
-namespace Auth0\Login\Repository;
+namespace Upbond\Auth\Login\Repository;
 
-use Auth0\Login\Auth0User;
-use Auth0\Login\Auth0JWTUser;
-use Auth0\Login\Contract\Auth0UserRepository as Auth0UserRepositoryContract;
+use Upbond\Auth\Login\AuthUser;
+use Upbond\Auth\Login\AuthJWTUser;
+use Upbond\Auth\Login\Contract\AuthUserRepository as AuthUserRepositoryContract;
 use Illuminate\Contracts\Auth\Authenticatable;
 
-class Auth0UserRepository implements Auth0UserRepositoryContract
+class AuthUserRepository implements AuthUserRepositoryContract
 {
     /**
      * @param array $decodedJwt
      *
-     * @return Auth0JWTUser
+     * @return AuthJWTUser
      */
     public function getUserByDecodedJWT(array $decodedJwt) : Authenticatable
     {
-        return new Auth0JWTUser($decodedJwt);
+        return new AuthJWTUser($decodedJwt);
     }
 
     /**
      * @param array $userInfo
      *
-     * @return Auth0User
+     * @return AuthUser
      */
     public function getUserByUserInfo(array $userInfo) : Authenticatable
     {
-        return new Auth0User($userInfo['profile'], $userInfo['accessToken']);
+        return new AuthUser($userInfo['profile'], $userInfo['accessToken']);
     }
 
     /**

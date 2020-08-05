@@ -1,6 +1,6 @@
 In order to efficiently and accurately address your issue or feature request, please read through the template below and answer all relevant questions. Your additional work here is greatly appreciated and will help us respond as quickly as possible. Please delete any sections or questions below that do not pertain to this request.
 
-For general support or usage questions, please use the [Auth0 Community](https://community.auth0.com/) or [Auth0 Support](https://support.auth0.com.).
+For general support or usage questions, please use the [Auth Community](https://community.auth0.com/) or [Auth Support](https://support.auth0.com.).
 
 ### Description
 
@@ -11,15 +11,15 @@ Description of the bug or feature request and why it's a problem. Consider inclu
 
 ### Prerequisites
 
-[ ] I have checked the [Auth0 Community](https://community.auth0.com/) for related posts.
+[ ] I have checked the [Auth Community](https://community.auth0.com/) for related posts.
 
 [ ] I have checked for related or duplicate [Issues](https://github.com/auth0/REPO-NAME/issues) and [PRs](https://github.com/auth0/REPO-NAME/pulls).
 
-[ ] I have read the [Auth0 general contribution guidelines](https://github.com/auth0/open-source-template/blob/master/GENERAL-CONTRIBUTING.md).
+[ ] I have read the [Auth general contribution guidelines](https://github.com/auth0/open-source-template/blob/master/GENERAL-CONTRIBUTING.md).
 
-[ ] I have read the [Auth0 Code of Conduct](https://github.com/auth0/open-source-template/blob/master/CODE-OF-CONDUCT.md).
+[ ] I have read the [Auth Code of Conduct](https://github.com/auth0/open-source-template/blob/master/CODE-OF-CONDUCT.md).
 
-[ ] I am reporting this to the correct repository (this module runs on [Auth0-PHP](https://github.com/auth0/auth0-PHP)).
+[ ] I am reporting this to the correct repository (this module runs on [Auth-PHP](https://github.com/auth0/auth0-PHP)).
 
 ### Environment
 

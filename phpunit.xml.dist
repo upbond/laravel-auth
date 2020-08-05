@@ -10,7 +10,7 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="Auth0 Laravel Test Suite">
+        <testsuite name="Auth Laravel Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>

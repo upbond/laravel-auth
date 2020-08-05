@@ -1,8 +1,8 @@
 <?php
 
-namespace Auth0\Login\Facade;
+namespace Upbond\Auth\Login\Facade;
 
-class Auth0 extends \Illuminate\Support\Facades\Facade
+class Auth extends \Illuminate\Support\Facades\Facade
 {
     /**
      * Get the registered name of the component.
