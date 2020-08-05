@@ -78,6 +78,7 @@ Route::group(['middleware' => 'auth:upbond'], function () {});
 ## env file
 
 ```
+UPBOND_API_URI
 UPBOND_AUTH_DOMAIN
 UPBOND_AUTH_CLIENT_ID
 UPBOND_AUTH_CLIENT_SECRET

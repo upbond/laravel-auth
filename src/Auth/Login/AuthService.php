@@ -46,7 +46,7 @@ class AuthService
         CacheInterface $cache = null
     )
     {
-
+       
         if (!$authConfig instanceof ConfigRepository && !is_array($authConfig)) {
             $authConfig = config('upbond');
         }
@@ -176,7 +176,7 @@ class AuthService
      */
     public function decodeJWT($encUser, array $verifierOptions = [])
     {
-        $token_issuer = 'https://'.$this->authConfig['domain'].'/';
+        $token_issuer = 'https://'.$this->authConfig['api_uri'].'/';
         $apiIdentifier = $this->authConfig['api_identifier'];
         $idTokenAlg = $this->authConfig['supported_algs'][0] ?? 'RS256';
      
@@ -186,14 +186,10 @@ class AuthService
             new AsymmetricUpbondVerifier()
         );
         $this->apiuser = $token_verifier->verify($encUser, $verifierOptions);
-        
+        // dd($this->apiuser);
         $user_fetcher = new UserFetcher($token_issuer, $this->authConfig['cache_handler']);
         $user = $user_fetcher->getUser($this->apiuser, $encUser);
-        //TODO: accountID 
-        // dd($token_issuer);
-        // $parsedUrl = parse_url($token_issuer);
-        // $host = explode('.', $parsedUrl['host']);
-        // $user['account'] = $host[0];
+
         return $user;
 
         // $token_issuer = 'https://'.$this->authConfig['domain'].'/';
