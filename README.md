@@ -75,6 +75,15 @@ auth('upbond')->check();
 Route::group(['middleware' => 'auth:upbond'], function () {});
 ```
 
+## env file
+
+```
+UPBOND_AUTH_DOMAIN
+UPBOND_AUTH_CLIENT_ID
+UPBOND_AUTH_CLIENT_SECRET
+```
+
+
 ## Installation
 
 Install this plugin into a new or existing project using [Composer](https://getcomposer.org/doc/00-intro.md):
