@@ -2,18 +2,6 @@
 
 This package is inspired by Auth0
 
-This plugin helps you integrate your [Laravel](https://laravel.com/) WebApp with [Auth](https://auth0.com/) to achieve Single Sign On with a few simple steps.
-
-- Master targets compatibility with Laravel 5.7 and above.
-- The 3.x branch (not maintained) targets Laravel 5.2 compatibility.
-- The 2.x branch (not maintained) targets Laravel 5.0 and 5.1 compatibility.
-- If you are working with an older version (Laravel 4.x), use version 1.0.* (not maintained)
-
-[![CircleCI](https://img.shields.io/circleci/project/github/auth0/laravel-auth0/master.svg)](https://circleci.com/gh/auth0/laravel-auth0)
-[![Latest Stable Version](https://poser.pugx.org/auth0/login/v/stable)](https://packagist.org/packages/auth0/login)
-[![License](https://poser.pugx.org/auth0/login/license)](https://packagist.org/packages/auth0/login)
-[![Total Downloads](https://poser.pugx.org/auth0/login/downloads)](https://packagist.org/packages/auth0/login)
-
 ## Documentation
 
 Please see the [Laravel webapp quickstart](https://auth0.com/docs/quickstart/webapp/laravel) for a complete guide on how to install this in an existing project or to download a pre-configured sample project. Additional documentation on specific scenarios is below.
