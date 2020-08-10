@@ -2,6 +2,7 @@
 
 namespace Upbond\Auth\Login;
 
+use Exception;
 use Upbond\Auth\Login\Contract\AuthUserRepository as AuthUserRepositoryContract;
 use Upbond\Auth\Login\Repository\AuthUserRepository;
 use Upbond\Auth\SDK\API\Helpers\ApiClient;
@@ -11,6 +12,7 @@ use Illuminate\Auth\RequestGuard;
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 use Upbond\Auth\SDK\Store\EmptyStore;
+use Illuminate\Auth\GenericUser;
 
 class LoginServiceProvider extends ServiceProvider
 {
@@ -71,7 +73,7 @@ class LoginServiceProvider extends ServiceProvider
                 ]);
     
             } catch (Exception $e) {
-               return response('Unauthorized.', 401);
+               return;
             }
             $data = json_decode($res->getBody(), true);
             $account = $data[0];

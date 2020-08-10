@@ -35,7 +35,7 @@ class AuthController extends Controller
 
         // Get the user related to the profile
         $upbondUser = $this->userRepository->getUserByUserInfo($profile);
-
+        
         if ($upbondUser) {
             // If we have a user, we are going to log them in, but if
             // there is an onLogin defined we need to allow the Laravel developer
