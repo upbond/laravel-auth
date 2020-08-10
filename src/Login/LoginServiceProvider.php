@@ -38,7 +38,7 @@ class LoginServiceProvider extends ServiceProvider
             __DIR__.'/../config/config.php' => base_path('config/upbond.php'),
         ]);
 
-        // $laravel = app();
+        $this->bootAccountAuth();
 
         $oldInfoHeaders = ApiClient::getInfoHeadersData();
 
@@ -51,6 +51,40 @@ class LoginServiceProvider extends ServiceProvider
             ApiClient::setInfoHeadersData($infoHeaders);
         }
     }
+    /**
+     * Upbond Account service - replaced with upbond auth in the future
+     */
+
+    private function bootAccountAuth()
+    {
+
+        $this->app['auth']->viaRequest('admin', function ($request) {
+            $client = new \GuzzleHttp\Client([
+                'base_uri' => env('AUTH_URL', 'http://account-service:8080'),
+              ]);
+
+              try {
+                $res = $client->post("oauth/token/validate",[
+                    'headers' => [
+                        'authorization' =>  $request->header('authorization'),
+                    ]
+                ]);
+    
+            } catch (Exception $e) {
+               return response('Unauthorized.', 401);
+            }
+            $data = json_decode($res->getBody(), true);
+            $account = $data[0];
+            $user =  new GenericUser($account);
+
+            $request->merge([
+                'account' => $user->id
+            ]);
+            return $user;
+        });
+
+    }
+
 
     /**
      * Register the service provider.
