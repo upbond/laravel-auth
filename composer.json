@@ -23,12 +23,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Upbond\\Auth\\Login\\": "src/"
+            "Upbond\\Auth\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Upbond\\Auth\\Login\\Tests\\": "tests"
+            "Upbond\\Auth\\Tests\\": "tests"
         }
     },
     "extra": {

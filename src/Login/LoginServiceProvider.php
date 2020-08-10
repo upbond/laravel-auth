@@ -29,13 +29,13 @@ class LoginServiceProvider extends ServiceProvider
         \Auth::extend('upbond', function ($app, $name, $config) {
             return new RequestGuard(function (Request $request, AuthUserProvider $provider) {
                 $user = $provider->retrieveByCredentials(['api_token' => $request->bearerToken()]);
-                $request->merge(['account' => $user->account]);
+                if ($user) $request->merge(['account' => $user->account]);
                 return $user;
             }, $app['request'], $app['auth']->createUserProvider($config['provider']));
         });
 
         $this->publishes([
-            __DIR__.'/../../config/config.php' => base_path('config/upbond.php'),
+            __DIR__.'/../config/config.php' => base_path('config/upbond.php'),
         ]);
 
         // $laravel = app();
@@ -57,7 +57,7 @@ class LoginServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $configPath = __DIR__.'/../../config/config.php';
+        $configPath = __DIR__.'/../config/config.php';
         $this->mergeConfigFrom($configPath, 'upbond');
 
         if (app() instanceof \Illuminate\Foundation\Application) {
