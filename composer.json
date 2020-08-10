@@ -22,11 +22,7 @@
         "sniffs": "\"vendor/bin/phpcs\" -e"
     },
     "autoload": {
-        "classmap": [
-            "src/controllers",
-            "src/facade"
-        ],
-        "psr-0": {
+        "psr-4": {
             "Upbond\\Auth\\Login\\": "src/"
         }
     },
