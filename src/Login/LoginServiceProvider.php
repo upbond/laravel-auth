@@ -31,7 +31,7 @@ class LoginServiceProvider extends ServiceProvider
         \Auth::extend('upbond', function ($app, $name, $config) {
             return new RequestGuard(function (Request $request, AuthUserProvider $provider) {
                 $user = $provider->retrieveByCredentials(['api_token' => $request->bearerToken()]);
-                if ($user) $request->merge(['account' => $user->account]);
+                if ($user) $request->headers->set('account', $user->account);
                 return $user;
             }, $app['request'], $app['auth']->createUserProvider($config['provider']));
         });
@@ -78,10 +78,7 @@ class LoginServiceProvider extends ServiceProvider
             $data = json_decode($res->getBody(), true);
             $account = $data[0];
             $user =  new GenericUser($account);
-
-            $request->merge([
-                'account' => $user->id
-            ]);
+            $request->headers->set('account', $user->id);
             return $user;
         });
 
