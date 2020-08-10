@@ -39,6 +39,16 @@ use Illuminate\Support\Facades\Cache;
     }
 ```
 
+### Setting up for lumen
+```
+$app->register(Upbond\Auth\Login\LoginServiceProvider::class);
+```
+
+### Update .env for your env default to api.upbond.io
+```
+UPBOND_API_URI=api.dev.upbond.io
+```
+
 You can implement your own cache strategy by creating a new class that implements the `Auth\SDK\Helpers\Cache\CacheHandler` contract, or just use the cache strategy you want by picking that store with `Cache::store('your_store_name')`;
 
 ### Storing users in your database
