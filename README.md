@@ -100,7 +100,7 @@ UPBOND_AUTH_CLIENT_SECRET
 Install this plugin into a new or existing project using [Composer](https://getcomposer.org/doc/00-intro.md):
 
 ```bash
-$ composer require upbond/login:"~6.0"
+$ composer require upbond/laravel-auth
 ```
 
 Additional steps to install can be found in the [quickstart](https://auth0.com/docs/quickstart/webapp/laravel#integrate-auth0-in-your-application).
