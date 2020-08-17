@@ -27,12 +27,26 @@ class AuthController extends Controller
      */
     public function callback()
     {
-        // Get a handle of the Auth service (we don't know if it has an alias)
-        $service = \App::make('upbond');
+        $domain = (new LaravelSessionStore)->get('domain');
+        $client = (new LaravelSessionStore)->get('client');
+
+        if ($domain && $client) {
+            $config = array_merge(config('upbond'), [
+                'domain' =>  $domain,
+                'client_id' => $client,
+                'client_secret' => (new LaravelSessionStore)->get('secret')
+            ]);
+            $service = new AuthService($config);
+        }else{
+        
+            // Get a handle of the Auth service (we don't know if it has an alias)
+            $service = \App::make('upbond');
+
+        }
 
         // Try to get the user information
         $profile = $service->getUser();
-
+        
         // Get the user related to the profile
         $upbondUser = $this->userRepository->getUserByUserInfo($profile);
         
