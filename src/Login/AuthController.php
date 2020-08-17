@@ -34,7 +34,8 @@ class AuthController extends Controller
             $config = array_merge(config('upbond'), [
                 'domain' =>  $domain,
                 'client_id' => $client,
-                'client_secret' => (new LaravelSessionStore)->get('secret')
+                'client_secret' => (new LaravelSessionStore)->get('secret'),
+                'redirect_uri' => (new LaravelSessionStore)->get('redirect'),
             ]);
             $service = new AuthService($config);
         }else{
