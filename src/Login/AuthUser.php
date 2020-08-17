@@ -33,7 +33,7 @@ class AuthUser implements \Illuminate\Contracts\Auth\Authenticatable
       if (isset($this->userInfo['sub'])) {
         return $this->userInfo['sub'];
       }
-      return $this->userInfo['user_id'];
+      return $this->userInfo['id'];
     }
 
     /**
