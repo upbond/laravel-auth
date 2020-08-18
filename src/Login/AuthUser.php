@@ -10,6 +10,7 @@ class AuthUser implements \Illuminate\Contracts\Auth\Authenticatable
 {
     protected $userInfo;
     protected $accessToken;
+    protected $account;
 
     /**
      * AuthUser constructor.
@@ -17,10 +18,11 @@ class AuthUser implements \Illuminate\Contracts\Auth\Authenticatable
      * @param array $userInfo
      * @param string|null $accessToken
      */
-    public function __construct(array $userInfo, $accessToken)
+    public function __construct(array $userInfo, $accessToken, $account)
     {
         $this->userInfo = $userInfo;
         $this->accessToken = $accessToken;
+        $this->account = $account;
     }
 
     /**

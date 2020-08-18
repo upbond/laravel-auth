@@ -26,7 +26,7 @@ class AuthUserRepository implements AuthUserRepositoryContract
      */
     public function getUserByUserInfo(array $userInfo) : Authenticatable
     {
-        return new AuthUser($userInfo['profile'], $userInfo['accessToken']);
+        return new AuthUser($userInfo['profile'], $userInfo['accessToken'], $userInfo['account']);
     }
 
     /**

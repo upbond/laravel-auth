@@ -116,10 +116,12 @@ class AuthService
         if ($user === null) {
             return;
         }
+        $account = explode('.', $this->authConfig['domain'])[0];
 
         return [
             'profile' => $user,
             'accessToken' => $auth->getAccessToken(),
+            'account' =>  $account
         ];
     }
 
