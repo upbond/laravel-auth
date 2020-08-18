@@ -6,6 +6,8 @@ use Upbond\Auth\Login\AuthUser;
 use Upbond\Auth\Login\AuthJWTUser;
 use Upbond\Auth\Login\Contract\AuthUserRepository as AuthUserRepositoryContract;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Upbond\Auth\Login\AuthService;
+use Upbond\Auth\Login\LaravelSessionStore;
 
 class AuthUserRepository implements AuthUserRepositoryContract
 {
@@ -37,8 +39,20 @@ class AuthUserRepository implements AuthUserRepositoryContract
     public function getUserByIdentifier($identifier) : ?Authenticatable
     {
         // Get the user info of the user logged in (probably in session)
-        $user = \App::make('upbond')->getUser();
+        
+        if ($domain = (new LaravelSessionStore())->get('domain')) {
+            $config = array_merge(config('upbond'), [
+                'domain' =>  $domain,
+                'client_id' => (new LaravelSessionStore())->get('client'),
+                'redirect_uri' =>  (new LaravelSessionStore())->get('redirect'),
+            ]);
+            $auth = new AuthService($config);
+    
+        }else{
+            $auth = \App::make('upbond');
+        }
 
+        $user = $auth->getUser();
         if ($user === null) {
             return null;
         }
