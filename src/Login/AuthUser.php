@@ -57,6 +57,10 @@ class AuthUser implements \Illuminate\Contracts\Auth\Authenticatable
     {
         return $this->accessToken;
     }
+    public function getAccessToken()
+    {
+        return $this->accessToken;
+    }
 
     /**
      * @return void
@@ -77,6 +81,10 @@ class AuthUser implements \Illuminate\Contracts\Auth\Authenticatable
      */
     public function getRememberTokenName()
     {
+    }
+    public function getAccount()
+    {
+        return $this->account;
     }
 
     /**
