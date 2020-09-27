@@ -55,12 +55,13 @@ class AuthController extends Controller
             // If we have a user, we are going to log them in, but if
             // there is an onLogin defined we need to allow the Laravel developer
             // to implement the user as they want an also let them store it.
-            if ($service->hasOnLogin()) {
-                $user = $service->callOnLogin($upbondUser);
-            } else {
-                // If not, the user will be fine
-                $user = $upbondUser;
-            }
+            //TODO: Need to check what's wrong
+//             if ($service->hasOnLogin()) {
+//                 $user = $service->callOnLogin($upbondUser);
+//             } else {
+//                 // If not, the user will be fine
+//                 $user = $upbondUser;
+//             }
             \Auth::login($user, $service->rememberUser());
         }
 
