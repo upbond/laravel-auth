@@ -83,6 +83,9 @@ auth('upbond')->user();
 auth('upbond')->check();
 // protect routes via middleware use
 Route::group(['middleware' => 'auth:upbond'], function () {});
+
+Route::get( '/auth/callback', '\Upbond\Auth\Login\AuthController@callback' )->name( 'auth-callback' );
+
 ```
 
 ## env file
