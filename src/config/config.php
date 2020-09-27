@@ -45,7 +45,7 @@ return [
      |   'Auth\Login\AuthController@callback'
      |
      */
-    'redirect_uri'  => env( 'APP_URL' ) . '/upbond auth service/callback',
+    'redirect_uri'  => env( 'APP_URL' ) . '/auth/callback',
 
     /*
     |--------------------------------------------------------------------------
