@@ -99,6 +99,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    |   Extend user class
+    |--------------------------------------------------------------------------
+    |   Token decoding algorithms supported by your API
+    |
+    */
+    'user' => [
+        'web' =>  \Upbond\Auth\Login\AuthUser::class,
+        'api' => \Upbond\Auth\Login\AuthJWTUser::class,
+    ]
+
+    /*
+    |--------------------------------------------------------------------------
     |   Guzzle Options
     |--------------------------------------------------------------------------
     |   guzzle_options    (array) optional. Used to specify additional connection options e.g. proxy settings

@@ -18,7 +18,8 @@ class AuthUserRepository implements AuthUserRepositoryContract
      */
     public function getUserByDecodedJWT(array $decodedJwt) : Authenticatable
     {
-        return new AuthJWTUser($decodedJwt);
+        $userClass = config('upbond.user.api');
+        return new $userClass($decodedJwt);
     }
 
     /**
@@ -28,7 +29,8 @@ class AuthUserRepository implements AuthUserRepositoryContract
      */
     public function getUserByUserInfo(array $userInfo) : Authenticatable
     {
-        return new AuthUser($userInfo['profile'], $userInfo['accessToken'], $userInfo['account']);
+        $userClass = config('upbond.user.session');
+        return new $userClass($userInfo['profile'], $userInfo['accessToken'], $userInfo['account']);
     }
 
     /**
