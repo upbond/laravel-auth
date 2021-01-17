@@ -14,11 +14,13 @@ abstract class BaseAuthUser implements \Illuminate\Contracts\Auth\Authenticatabl
 {
     public $apiClient;
 
+    public $eventClient;
+
     public function __construct(string $accessToken)
     {
         $this->apiClient = new ApiClient([
             'domain' => 'https://'.config('upbond.domain'),
-            'basePath' => '/authenticate/user/',
+            'basePath' => '/authenticate/',
             // 'guzzleOptions' => $guzzleOptions,
             // 'returnType' => 'object',
             'headers' => [
@@ -31,6 +33,7 @@ abstract class BaseAuthUser implements \Illuminate\Contracts\Auth\Authenticatabl
     {
 
         $response =  $this->apiClient->method('post')
+        ->addPath('user')
         ->withBody(json_encode($data))
         ->call();
 
@@ -39,5 +42,13 @@ abstract class BaseAuthUser implements \Illuminate\Contracts\Auth\Authenticatabl
         }else{
             throw new Exception('customer update fail');
         }
+    }
+
+    public function eventPublish(array $data = [])
+    {
+        $response =  $this->apiClient->method('post')
+        ->addPath('event')
+        ->withBody(json_encode($data))
+        ->call();
     }
 }
