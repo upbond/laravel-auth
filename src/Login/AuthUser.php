@@ -6,8 +6,9 @@ namespace Upbond\Auth\Login;
  * This class represents a generic user initialized with the user information
  * given by Auth and provides a way to access to the user profile.
  */
-class AuthUser implements \Illuminate\Contracts\Auth\Authenticatable
+class AuthUser extends BaseAuthUser
 {
+
     protected $userInfo;
     protected $accessToken;
     protected $account;
@@ -20,9 +21,11 @@ class AuthUser implements \Illuminate\Contracts\Auth\Authenticatable
      */
     public function __construct(array $userInfo, $accessToken, $account)
     {
+        parent::__construct($accessToken);
         $this->userInfo = $userInfo;
         $this->accessToken = $accessToken;
         $this->account = $account;
+        
     }
 
     /**
