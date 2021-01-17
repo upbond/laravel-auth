@@ -62,7 +62,7 @@ class AuthController extends Controller
 //                 // If not, the user will be fine
 //                 $user = $upbondUser;
 //             }
-            \Auth::login($user, $service->rememberUser());
+            \Auth::login($upbondUser, $service->rememberUser());
         }
 
         return \Redirect::intended('/');
