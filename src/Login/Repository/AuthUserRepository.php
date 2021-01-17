@@ -29,7 +29,7 @@ class AuthUserRepository implements AuthUserRepositoryContract
      */
     public function getUserByUserInfo(array $userInfo) : Authenticatable
     {
-        $userClass = config('upbond.user.session');
+        $userClass = config('upbond.user.web');
         return new $userClass($userInfo['profile'], $userInfo['accessToken'], $userInfo['account']);
     }
 
