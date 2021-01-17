@@ -111,7 +111,12 @@ class AuthUser extends BaseAuthUser
     {
         return $this->userInfo;
     }
-
+    /**
+     */
+    public function setUserInfo($data)
+    {
+        $this->userInfo = $data;
+    }
     /**
      * @return string
      */
