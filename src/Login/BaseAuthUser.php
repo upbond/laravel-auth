@@ -20,7 +20,8 @@ abstract class BaseAuthUser implements \Illuminate\Contracts\Auth\Authenticatabl
     {
         $this->apiClient = new ApiClient([
             'domain' => 'https://'.config('upbond.domain'),
-            'basePath' => '/authenticate/',
+            // 'basePath' => '/authenticate/',
+            'basePath' => '/customer/', // v2 api
             // 'guzzleOptions' => $guzzleOptions,
             // 'returnType' => 'object',
             'headers' => [
@@ -33,7 +34,7 @@ abstract class BaseAuthUser implements \Illuminate\Contracts\Auth\Authenticatabl
     {
 
         $response =  $this->apiClient->method('post')
-        ->addPath('user')
+        // ->addPath('user')
         ->withBody(json_encode($data))
         ->call();
 
