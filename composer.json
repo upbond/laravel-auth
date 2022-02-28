@@ -5,7 +5,7 @@
     "prefer-stable": true,
     "require": {
         "php": "^7.3 | ^8.0",
-        "upbond/auth-php": "^2.0",
+        "upbond/auth-php": "^2.0.2",
         "illuminate/support": "5.* | ^6.0 | ^7.0 | ^8.0",
         "illuminate/contracts": "5.* | ^6.0 | ^7.0 | ^8.0"
     },
