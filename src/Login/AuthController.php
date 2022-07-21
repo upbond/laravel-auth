@@ -47,6 +47,10 @@ class AuthController extends Controller
 
         // Try to get the user information
         $profile = $service->getUser();
+
+        if(!$profile){
+            return \Redirect::intended('login');
+         }
         
         // Get the user related to the profile
         $upbondUser = $this->userRepository->getUserByUserInfo($profile);
